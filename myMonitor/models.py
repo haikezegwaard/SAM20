@@ -11,5 +11,14 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name;
 
+#Periodic summary
+class Summary(models.Model):
+    project = models.ForeignKey(Project)
+    housesForSaleOrRent = models.IntegerField(max_length = 10)
+    housesUnderOption = models.IntegerField(max_length = 10)
+    housesSoldOrRented = models.IntegerField(max_length = 10)
+    dateStart = models.DateField()
+    dateEnd = models.DateField()
+
 
 
