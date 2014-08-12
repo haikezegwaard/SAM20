@@ -1,5 +1,5 @@
 """
-Django settings for myMonitor project.
+Django settings for monitor project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -37,7 +37,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'niki',
-    'myMonitor'
+    'monitor',
+    'nikiInterest',
+    'googleAnalytics',
+    'social.apps.django_app.default',
+    'debug_toolbar'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,9 +53,25 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'myMonitor.urls'
+AUTHENTICATION_BACKENDS = (
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+)
 
-WSGI_APPLICATION = 'myMonitor.wsgi.application'
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect'
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '668855476975-5l8p7sua5hp70o0rbisp941dsfk462ki.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'Jfc8k03j8ihL_9U_FgdCvTG4'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/analytics.readonly']
+
+ROOT_URLCONF = 'monitor.urls'
+
+WSGI_APPLICATION = 'monitor.wsgi.application'
+
 
 
 # Database

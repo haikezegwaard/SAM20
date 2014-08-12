@@ -1,5 +1,5 @@
 """
-Django settings for myMonitor project.
+Django settings for monitor project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -47,9 +47,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'myMonitor.urls'
+ROOT_URLCONF = 'monitor.urls'
 
-WSGI_APPLICATION = 'myMonitor.wsgi.application'
+WSGI_APPLICATION = 'monitor.wsgi.application'
 
 
 # Database

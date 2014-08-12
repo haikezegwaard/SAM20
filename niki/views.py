@@ -18,6 +18,7 @@ class IndexView(generic.DetailView):
         account = Account()
         account.username = 'username'
         account.password = 'password'
-        account.oauth_token = self.nikiconverter.getProject()
-        return account;
+        self.nikiconverter.getAvailability("/projects/54/AMVP9518")
+        account.oauth_token = self.nikiconverter.getProject("/projects/54/AMVP9518")
+        return account
 
