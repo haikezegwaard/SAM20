@@ -2,6 +2,7 @@ import urllib2
 from django.contrib.auth.models import User
 import requests
 import logging
+import analitics
 
 class AnalyticsManager:
 
