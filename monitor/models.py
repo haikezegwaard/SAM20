@@ -27,6 +27,9 @@ class Summary(models.Model):
     housesUnderOption = models.IntegerField(max_length = 10)
     housesSoldOrRented = models.IntegerField(max_length = 10)
 
+    cummulativeInterest = models.IntegerField(max_length = 10)
+    interest = models.IntegerField(max_length = 10)
+
     dateStart = models.DateField()
     dateEnd = models.DateField()
 

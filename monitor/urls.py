@@ -14,5 +14,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^niki/', include('niki.urls')),
     url(r'^nikiInterest/', include('nikiInterest.urls')),
-    url('', include('social.apps.django_app.urls', namespace='social'))
+    url('', include('social.apps.django_app.urls', namespace='social')),
+
+    url(r'^$',views.ProfileView.as_view(), name='profile')
 )
