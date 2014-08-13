@@ -41,7 +41,8 @@ INSTALLED_APPS = (
     'nikiInterest',
     'googleAnalytics',
     'social.apps.django_app.default',
-    'debug_toolbar'
+    'debug_toolbar',
+
 )
 
 MIDDLEWARE_CLASSES = (

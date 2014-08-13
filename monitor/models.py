@@ -1,4 +1,5 @@
 from django.db import models
+from nikiInterest.models import InterestAccount
 
 # Create your models here.
 class Project(models.Model):
@@ -12,11 +13,11 @@ class Project(models.Model):
         return self.name;
 
 #Account for SOAP interest service
-class InterestAccount(models.Model):
+class InterestProject(models.Model):
     project = models.ForeignKey(Project)
-    username = models.CharField(max_length = 400)
-    password = models.CharField(max_length = 400)
     nikiProjectId = models.CharField(max_length = 400)
+    interestAccount = models.ForeignKey(InterestAccount)
+
 
 #Periodic summary
 class Summary(models.Model):
@@ -32,9 +33,4 @@ class Summary(models.Model):
     def __unicode__(self):
         return str(self.dateStart) + ' - ' + str(self.dateEnd)
 
-class InterestCount(models.Model):
-    project
-
-class HouseTypeCount(models.Model):
-    project = models.ForeignKey
 
