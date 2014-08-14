@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from monitor.models import Project, Summary
 from datetime import date, timedelta, datetime
 from niki.nikiconverter import NikiConverter
-from nikiInterest.InterestManager import InterestManager
+from nikiInterest import interestmanager
 from django.shortcuts import get_object_or_404
 from nikiInterest.models import InterestAccount
 from googleAnalytics.analyticsmanager import AnalyticsManager
@@ -33,9 +33,9 @@ class ProfileView(generic.TemplateView):
         # Call the base implementation first to get a context
         context = super(ProfileView,self).get_context_data(**kwargs)
         analyticsManager = AnalyticsManager()
-        context['ga'] = analyticsManager.getConversionCount('67007798', '2013-01-01', '2014-08-13')
+        context['ga'] = analyticsManager.get_conversion_count('67007798', '2013-01-01', '2014-08-13')
         return context
-    
+
 
 #view to fill the summaries
 def summarize(request, projectId):
@@ -52,7 +52,7 @@ def summarize(request, projectId):
     summary.housesUnderOption = availability[2]
 
     #GET interest info from Niki Interest API
-    interestManager = InterestManager()
+    interestManager = interestmanager()
     projectId = '36002'
     account = InterestAccount.objects.get(username = "interessetester")
     interestStart = datetime.combine(summary.dateStart, datetime.min.time())

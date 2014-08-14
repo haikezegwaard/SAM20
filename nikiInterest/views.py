@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from nikiInterest.models import InterestAccount
-from nikiInterest.InterestManager import InterestManager
+from nikiInterest import interestmanager
 from datetime import date, datetime, timedelta
 import xml.etree.ElementTree as ET
 
@@ -20,7 +20,7 @@ class IndexView(generic.TemplateView):
         start = datetime.today() - timedelta(days=14)
 
         # Add in a QuerySet of all the books
-        interestManager = InterestManager()
+        interestManager = interestmanager()
         #context['myVar'] = interestManager.getSubscribersSinceDate(datetime(2014, 7, 29, 13, 1, 31))
         account = InterestAccount.objects.get(username='interessetester')
         #context['myVar'] = interestManager.getById(account, '171795')
