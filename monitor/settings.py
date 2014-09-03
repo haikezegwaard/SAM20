@@ -38,6 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'niki',
     'monitor',
+    'notifier',
+    'cyfe',
     'nikiInterest',
     'googleAnalytics',
     'social.apps.django_app.default',
