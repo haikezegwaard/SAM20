@@ -4,7 +4,6 @@ import hashlib
 import logging
 from pysimplesoap.simplexml import SimpleXMLElement
 import xml.etree.ElementTree as ET
-from datetime import datetime
 
 class InterestManager:
 
@@ -148,7 +147,7 @@ class InterestManager:
 
     #get single subscription by id,
     #returns SimpleXMLElement
-    def getById(self, interestAccount, id):
+    def getById(self, interestAccount, subscriber_id):
         pwd = hashlib.md5(interestAccount.password).hexdigest()
         params = SimpleXMLElement("""<?xml version="1.0" encoding="UTF-8"?>
               <getById soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:end="http://endpoint.interest.service.lnp.fundament.nl">
@@ -156,7 +155,7 @@ class InterestManager:
          <password xsi:type="xsd:string">{}</password>
          <id xsi:type="xsd:Long">{}</id>
       </getById>
-""".format(interestAccount.username,pwd, id)) # manually make request msg
+""".format(interestAccount.username,pwd, subscriber_id)) # manually make request msg
         response = self.client.call('getById',params)
         result = unicode(response.getByIdResponse.getByIdReturn)
         logging.warn(result)

@@ -1,9 +1,8 @@
-from django.conf.urls import patterns, include, url
-from notifier import views
+from django.conf.urls import patterns, url
 from django.contrib import admin
-from views import DirectTemplateView
+from views import DigestView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', DirectTemplateView.as_view(template_name='digest.html', extra_context={ 'foo': 'bar'}),  name='digest')
+    url(r'^$', DigestView.as_view(template_name='digest.html', extra_context={ 'foo': 'bar'}),  name='digest')
 )

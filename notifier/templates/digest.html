@@ -5,7 +5,7 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
             // Load the Visualization API and the piechart package.
-            google.load('visualization', '1.0', {'packages':['corechart']});
+            google.load('visualization', '1.0', {'packages':['corechart','gauge']});
 
             // Set a callback to run when the Google Visualization API is loaded.
             google.setOnLoadCallback(drawChart);
@@ -15,78 +15,69 @@
             // draws it.
             function drawChart() {
 
-              // Create the data table.
-              var data = new google.visualization.DataTable();
-              data.addColumn('string', 'Topping');
-              data.addColumn('number', 'Slices');
-              data.addRows([
-                ['Mushrooms', 3],
-                ['Onions', 1],
-                ['Olives', 1],
-                ['Zucchini', 1],
-                ['Pepperoni', 2]
-              ]);
-              // Create the data table.
-              var data2 = new google.visualization.DataTable();
-              data2.addColumn('string', 'Topping');
-              data2.addColumn('number', 'Slices');
-              data2.addRows([
-                ['Mushrooms', 3],
-                ['Onions', 1],
-                ['Olives', 15],
-                ['Zucchini', 1],
-                ['Pepperoni', 2]
-              ]);
-
-              // Set chart options
-              var options = {'title':'How Much Pizza I Ate Last Night',
-                             'width':400,
-                             'height':300};
-              // Set chart options
-              var options2 = {'title':'How Much Pizza You Ate Last Night',
-                             'width':400,
-                             'height':300};
-
-              // Instantiate and draw our chart, passing in some options.
-              var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-              chart.draw(data, options);
-              var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
-              chart2.draw(data2, options2);
-
               var traffic_data = new google.visualization.DataTable();
               traffic_data.addColumn('string','Day');
               traffic_data.addColumn('number','Sessions');
               traffic_data.addColumn('number','Pageviews');
               {% for entry in traffic %}
                 traffic_data.addRows([
-                    ['{{entry.0}}',{{entry.2}},{{entry.3}}]
+                    ['{{entry.0}}',{{entry.1}},{{entry.2}}]
                 ]);
               {% endfor %}
               var traffic_chart = new google.visualization.LineChart(document.getElementById('traffic_plot'));
               var traffic_options = {'title':'Traffic',
                                      'width':800,
-                                     'height':300
+                                     'height':200
                                      };
 
               //traffic_chart.draw(traffic_data,traffic_options);
 
-      // Wait for the chart to finish drawing before calling the getImageURI() method.
-      chart_div = document.getElementById('chart_div');
-      google.visualization.events.addListener(traffic_chart, 'ready', function () {
-        chart_div.innerHTML = '<img src="' + traffic_chart.getImageURI() + '">';
-        console.log(chart_div.innerHTML);
-      });
+                // Wait for the chart to finish drawing before calling the getImageURI() method.
+                chart_div = document.getElementById('traffic_plot');
+                google.visualization.events.addListener(traffic_chart, 'ready', function () {
+                    chart_div.innerHTML = '<img src="' + traffic_chart.getImageURI() + '">';
+                    console.log(chart_div.innerHTML);
+                });
 
-      traffic_chart.draw(traffic_data,traffic_options);
+                traffic_chart.draw(traffic_data,traffic_options);
+
+                //Interest Gauge
+                var data = google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Interesse', {{interest}}]
+                ]);
+                var options = {
+                    width: 400, height: 200,
+                    redFrom: 0, redTo: 1,
+                    yellowFrom:1, yellowTo: 3,
+                    greenFrom: 3, greenTo: 6,
+                    minorTicks: 5, max: 6
+                };
+                var chart = new google.visualization.Gauge(document.getElementById('interest_plot'));
+                chart.draw(data, options);
+
+                //Conversion Gauge
+                var data = google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Conversies', {{conversions}}]
+                ]);
+                var options = {
+                    width: 400, height: 200,
+                    redFrom: 0, redTo: 3,
+                    yellowFrom:3, yellowTo: 10,
+                    greenFrom: 20, greenTo: 30,
+                    minorTicks: 5, max: 30
+                };
+                var chart = new google.visualization.Gauge(document.getElementById('conversion_plot'));
+                chart.draw(data, options);
             }
         </script>
     </head>
     <body>
         <!--Divs that will hold the charts-->
-        <div id="chart_div"></div>
-        <div id="chart_div2"></div>
-        <div id="chart_div3"></div>
-
         <div id="traffic_plot"></div>
+        <div id="interest_plot" style="width: 400px; height: 200px;"></div>
+        <div id="conversion_plot" style="width: 400px; height: 200px;"></div>
+        <h1>Conversieratio: {{conversionrate}}<small> (Vorige periode: {{previousconversionrate}})</small></h1>
     </body>
 </html>
