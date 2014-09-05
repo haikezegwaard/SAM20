@@ -9,7 +9,8 @@ class AnalyticsManager:
     GA_URL = 'https://www.googleapis.com/analytics/v3/data/ga?'
 
     def get_weekly_visits(self, viewid, start, end):
-        return self.reporting_API_call(viewid, start, end, ['sessions','pageviews'], '&sort=ga:day&dimensions=ga:dayOfWeekName,ga:day&max-results=200')
+        """For convenience only"""
+        return self.reporting_API_call(viewid, start, end, ['sessions','pageviews'], '&sort=ga:date&dimensions=ga:date&max-results=200')
 
     def get_conversion_count(self, viewid, start, end):
         """Get conversion count for specific view id in daterange
@@ -22,6 +23,36 @@ class AnalyticsManager:
         """
         obj = self.reporting_API_call(viewid, start, end, ['goalCompletionsAll'])
         return int(obj['totalsForAllResults']['ga:goalCompletionsAll']);
+
+
+    def get_conversion_count_for_goal(self, viewid, goalid, start, end):
+        """Get conversion count for specific view id and specific goal number in daterange
+        Args:
+            viewid: string, id of specific property
+            goalid: id of specific goal
+            start: string, startdate in format yyyy-mm-dd
+            end: string, enddate in format yyyy-mm-dd
+        Returns:
+            int, number of goal completions
+        """
+        action = 'goal{}Completions'.format(goalid)
+        obj = self.reporting_API_call(viewid, start, end, [action])
+        return int(obj['totalsForAllResults']['ga:'+action]);
+
+
+    def get_conversion_rate_for_goal(self, viewid, goalid, start, end):
+        """Get conversion rate for specific view id and specific goal number in daterange
+        Args:
+            viewid: string, id of specific property
+            goalid: id of specific goal
+            start: string, startdate in format yyyy-mm-dd
+            end: string, enddate in format yyyy-mm-dd
+        Returns:
+            perc, goal gonversion rate
+        """
+        action = 'goal{}ConversionRate'.format(goalid)
+        obj = self.reporting_API_call(viewid, start, end, [action])
+        return round(float(obj['totalsForAllResults']['ga:'+action]),2);
 
 
     def get_session_count(self, viewid, start, end):
