@@ -48,12 +48,33 @@ class NikiConverter:
                 self.availability[2] += int(soldRented)
         return self.availability
 
+    def getLabeledAvailability(self, project):
+        projectType = self.getProjectSaleRentType(project)
+        self.getAvailability(project)
+        result = {}
+        if(projectType == 'for-rent'):
+            result = {'te huur' : self.availability[0],
+                      'optie' : self.availability[1],
+                      'verhuurd' : self.availability[2]}
+        else:
+            result = {'te koop' : self.availability[0],
+                      'optie' : self.availability[1],
+                      'verkocht' : self.availability[2]}
+        return result
+
     def getProjectSaleRentType(self, project):
         projectJson = self.apiRequest(project)
         saleRent = 'for-sale'
         if(projectJson.get('type') == 'huur'):
             saleRent = 'for-rent'
         return saleRent
+
+    def getHouseTypes(self, project):
+        """
+        Return all housetypes of given project
+        """
+        resource = project+"/housetypes"
+        return self.apiRequest(resource)
 
     def apiRequest(self, resource):
         """do the request, append oauth token"""

@@ -4,5 +4,5 @@ from views import DigestView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', DigestView.as_view(template_name='digest.html', extra_context={ 'foo': 'bar'}),  name='digest')
+    url(r'^$', DigestView.as_view(template_name='digest.html', extra_context={ 'projectname': 'testproject'}),  name='digest')
 )

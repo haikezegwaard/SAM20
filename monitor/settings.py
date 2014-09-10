@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'monitor',
     'notifier',
     'cyfe',
+    'facebook',
     'nikiInterest',
     'googleAnalytics',
     'social.apps.django_app.default',

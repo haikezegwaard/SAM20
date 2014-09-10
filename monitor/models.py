@@ -8,6 +8,7 @@ class Project(models.Model):
     email = models.EmailField()
     url = models.URLField()
     nikiProject = models.CharField(max_length = 1000)
+    ga_view = models.CharField(max_length = 1000)
 
     def __unicode__(self):
         return self.name;
