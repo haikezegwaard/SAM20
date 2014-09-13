@@ -1,3 +1,4 @@
 Django==1.6.5
 PySimpleSOAP==1.10
 python-social-auth==0.1.26
+mailchimp-api-python==2.0.8

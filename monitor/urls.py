@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^nikiInterest/', include('nikiInterest.urls')),
     url(r'^facebook/', include('facebook.urls')),
     url(r'^cyfe/', include('cyfe.urls')),
+    url(r'^mailchimp/', include('mcapi.urls')),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^$',views.ProfileView.as_view(), name='profile')
 )

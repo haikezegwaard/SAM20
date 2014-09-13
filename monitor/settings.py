@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'notifier',
     'cyfe',
     'facebook',
+    'mcapi',
     'nikiInterest',
     'googleAnalytics',
     'social.apps.django_app.default',
@@ -49,6 +50,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -75,6 +77,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/analytics.re
 ROOT_URLCONF = 'monitor.urls'
 
 WSGI_APPLICATION = 'monitor.wsgi.application'
+
 
 
 

@@ -9,6 +9,8 @@ class Project(models.Model):
     url = models.URLField()
     nikiProject = models.CharField(max_length = 1000)
     ga_view = models.CharField(max_length = 1000)
+    mailchimp_list_id = models.CharField(max_length = 1000)
+    mailchimp_api_token = models.CharField(max_length = 1000)
 
     def __unicode__(self):
         return self.name;

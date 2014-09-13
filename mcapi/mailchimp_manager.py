@@ -15,3 +15,7 @@ class MailchimpManager:
         self.api = mailchimp.Mailchimp(apikey)
 
     def get_list_growth_data(self, listid):
+        try:
+            result = self.api.lists.growth_history(listid)
+        except mailchimp.Error:
+            logging.error("Invalid API key")
