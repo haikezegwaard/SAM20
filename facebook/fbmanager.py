@@ -24,6 +24,31 @@ class FacebookManager:
         lastvalues = max(data,key=lambda item:item['end_time']) #compare based on EACH items 'end_time' field
         return lastvalues.get('value')
 
+    def get_likes_sex_age_spread_sorted(self, page):
+        """
+        Return age / sex spread formatted for use in Google Chart
+        """
+        agesexspread = self.get_likes_sex_age(page)
+        fullspread = {}
+        for k, v in agesexspread.items():
+            if k.startswith('M.'):
+                testkey = u'F.{}'.format(k[2:])
+            if k.startswith('F.'):
+                testkey = u'M.{}'.format(k[2:])
+            if testkey not in agesexspread:
+                fullspread[testkey] = 0
+            fullspread[k] = v
+        logging.debug(fullspread)
+
+        male = {k[2:]: v for k, v in fullspread.items() if k.startswith('M.')}
+        female = {k[2:]: v for k, v in fullspread.items() if k.startswith('F.')}
+
+        d = {}
+        for i in male.keys():
+            d[i] = [male[i], female[i]]
+
+        return (sorted(d.items()))
+
 
     def do_request(self, url):
         """
