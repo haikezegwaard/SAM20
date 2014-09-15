@@ -11,6 +11,7 @@ class MailchimpManager:
     retrieve project specific reporting data
     """
 
+
     def __init__(self, apikey):
         self.api = mailchimp.Mailchimp(apikey)
 

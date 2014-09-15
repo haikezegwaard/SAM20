@@ -9,6 +9,7 @@ import xml.etree.ElementTree as ET
 from monitor.models import Project
 from facebook.fbmanager import FacebookManager
 import logging
+from mcapi.mailchimp_manager import MailchimpManager
 
 class DirectTemplateView(TemplateView):
     """View to display template without model, adding context from parameters"""
@@ -65,6 +66,12 @@ class DigestView(TemplateView):
         fbmanager = FacebookManager()
         agesexspread = fbmanager.get_likes_sex_age_spread_sorted('217907011622497')
         context['fbagesexspread'] = agesexspread
+
+
+        #Get Mailchimp list growth statistics
+        mcmanager = MailchimpManager(project.mailchimp_api_token)
+        context['mailchimp'] = mcmanager.get_list_growth_data(project.mailchimp_list_id)
+
         return context
 
 
